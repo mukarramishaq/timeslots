@@ -1,9 +1,6 @@
 import { addSeconds, areIntervalsOverlapping, differenceInSeconds, toDate } from "date-fns";
+import { SlotType } from "../types/timeslots";
 
-interface SlotType {
-    start: Date | number,
-    end: Date | number
-}
 
 /**
  * create slots from the available duration between start time and end time of a specified length
