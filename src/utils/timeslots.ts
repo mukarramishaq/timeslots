@@ -1,16 +1,24 @@
-import { addSeconds, areIntervalsOverlapping, differenceInSeconds, toDate } from "date-fns";
-import { SlotType } from "allTypes";
-
+import {
+    addSeconds,
+    areIntervalsOverlapping,
+    differenceInSeconds,
+    toDate,
+} from 'date-fns';
+import { SlotType } from 'allTypes';
 
 /**
  * create slots from the available duration between start time and end time of a specified length
- * 
+ *
  * @param {Date|number} startTime start time in Date object or timestamp
  * @param {Date|number} endTime start time in Date object or timestamp
  * @param {number} slotLength length of each slot in seconds. default is 30 mins
  * @returns {Array<SlotType>} slots
  */
-export function createSlots(startTime: Date | number, endTime: Date | number, slotLength = 30 * 60): SlotType[] {
+export function createSlots(
+    startTime: Date | number,
+    endTime: Date | number,
+    slotLength = 30 * 60
+): SlotType[] {
     const start = toDate(startTime);
     const end = toDate(endTime);
     const totalSeconds = differenceInSeconds(end, start);
@@ -19,7 +27,7 @@ export function createSlots(startTime: Date | number, endTime: Date | number, sl
         return {
             start: addSeconds(start, i * slotLength),
             end: addSeconds(start, i * slotLength),
-            metadata: {}
+            metadata: {},
         } as SlotType;
     });
 }
@@ -32,7 +40,11 @@ export function createSlots(startTime: Date | number, endTime: Date | number, sl
  * @param {Boolean} inclusive boolean whether the overlap check is inclusive or not. by default its not
  * @returns {Boolean} true or false for overlapping or not overlapping
  */
-export function doesSlotOverlap(slot: SlotType, slots: SlotType[], inclusive = false) {
+export function doesSlotOverlap(
+    slot: SlotType,
+    slots: SlotType[],
+    inclusive = false
+) {
     const overlappedSlots = getOverlappingSlots(slot, slots, inclusive);
     return overlappedSlots.length > 0;
 }
@@ -44,8 +56,12 @@ export function doesSlotOverlap(slot: SlotType, slots: SlotType[], inclusive = f
  * @param {Boolean} inclusive the boolean check to enable or disable the inclusive overlap. By default its false (disabled)
  * @returns {Array<SlotType>} an array of slots which overlap
  */
-export function getOverlappingSlots(slot: SlotType, slots: SlotType[], inclusive = false) {
+export function getOverlappingSlots(
+    slot: SlotType,
+    slots: SlotType[],
+    inclusive = false
+) {
     return slots.filter(s => {
-        return areIntervalsOverlapping(slot, s, { inclusive })
+        return areIntervalsOverlapping(slot, s, { inclusive });
     });
 }

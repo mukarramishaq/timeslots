@@ -1,2 +1,1 @@
-
-export * from "./timeslots";
+export * from './timeslots';
