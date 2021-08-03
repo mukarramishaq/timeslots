@@ -1,5 +1,5 @@
 import { addSeconds, areIntervalsOverlapping, differenceInSeconds, toDate } from "date-fns";
-import { SlotType } from "../types/timeslots";
+import { SlotType } from "allTypes";
 
 
 /**
@@ -18,7 +18,8 @@ export function createSlots(startTime: Date | number, endTime: Date | number, sl
     return Array.from(Array(numberOfSlots), (_, i) => {
         return {
             start: addSeconds(start, i * slotLength),
-            end: addSeconds(start, i * slotLength)
+            end: addSeconds(start, i * slotLength),
+            metadata: {}
         } as SlotType;
     });
 }
