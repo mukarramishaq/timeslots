@@ -5,7 +5,6 @@ import {
     toDate,
 } from 'date-fns';
 import { RawSlotType, SlotType } from 'allTypes';
-import { v4 as uuid } from 'uuid';
 /**
  * create slots from the available duration between start time and end time of a specified length
  *
@@ -25,7 +24,7 @@ export function createSlots(
     const numberOfSlots = Math.round(totalSeconds / slotLength);
     return Array.from(Array(numberOfSlots), (_, i) => {
         return {
-            id: uuid(),
+            id: `${start.toISOString()}-${end.toISOString()}`,
             start: addSeconds(start, i * slotLength),
             end: addSeconds(start, i * slotLength),
             length: slotLength,
@@ -42,16 +41,16 @@ export function createSlots(
  * @param {Date|number} param0.endTime a Date object or timestamp
  * @returns {SlotType}
  */
-export function createSlot({startTime, endTime} : RawSlotType){
+export function createSlot({ startTime, endTime }: RawSlotType) {
     const start = toDate(startTime);
     const end = toDate(endTime);
     return {
-        id: uuid(),
+        id: `${start.toISOString()}-${end.toISOString()}`,
         start,
         end,
         length: differenceInSeconds(end, start),
         isAvailable: true,
-        metadata: {}
+        metadata: {},
     } as SlotType;
 }
 
